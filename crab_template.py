@@ -20,8 +20,9 @@ config.Data.outputPrimaryDataset = 'XX-DATASET-XX'
 #config.Data.unitsPerJob = 10000
 config.Data.splitting = 'EventBased'
 config.Data.unitsPerJob = 2000
-config.Data.totalUnits = config.Data.unitsPerJob * 100
-config.Data.outLFNDirBase = '/store/user/jiafulow/L1MuonTrigger/XX-LABEL-XX/'
+njobs = XX-NJOBS-XX
+config.Data.totalUnits = config.Data.unitsPerJob * njobs
+config.Data.outLFNDirBase = '/store/user/jiafulow/L1MuonTrigger/7_6_1/XX-LABEL-XX/'
 config.Data.publication = False
 config.Data.outputDatasetTag = 'CRAB3'
 
