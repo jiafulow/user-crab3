@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: L1TMuonSimulations/Configuration/python/HCA-RunIISummer15GS-00002-fragment.py --step GEN,SIM,DIGI:pdigi_valid,L1,DIGI2RAW,HLT:GRun,RAW2DIGI,L1Reco,RECO --mc --eventcontent RAWSIM --datatier GEN-SIM-RAW --processName RAWSIM --era Run2_2016 --conditions 80X_mcRun2_asymptotic_v14 --customise L1TMuonSimulations/Configuration/customise.cust_pileup --customise_commands process.mix.input.nbPileupEvents.probValue = cms.vdouble(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0) --beamspot Realistic50ns13TeVCollision --magField 38T_PostLS1 --python_filename pset_SingleNeutrino_PU20.py --fileout file:SingleNeutrino_PU20.root --no_exec -n 10
+# with command line options: L1TMuonSimulations/Configuration/python/SingleMuonFlatOneOverPt2To7000_PositiveEndCap_cfi.py --step GEN,SIM,DIGI:pdigi_valid,L1,DIGI2RAW,HLT:GRun,RAW2DIGI,L1Reco,RECO --mc --eventcontent RAWSIM --datatier GEN-SIM-RAW --processName RAWSIM --era Run2_2016 --conditions 80X_mcRun2_asymptotic_v14 --customise L1TMuonSimulations/Configuration/customise.cust_pileup --customise_commands process.mix.input.nbPileupEvents.probValue = cms.vdouble(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0) --beamspot Realistic50ns13TeVCollision --magField 38T_PostLS1 --python_filename pset_SingleMuon_PositiveEndCap_PU30.py --fileout file:SingleMuon_PositiveEndCap_PU30.root --no_exec -n 10
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.StandardSequences.Eras import eras
@@ -45,7 +45,7 @@ process.options = cms.untracked.PSet(
 
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('L1TMuonSimulations/Configuration/python/HCA-RunIISummer15GS-00002-fragment.py nevts:10'),
+    annotation = cms.untracked.string('L1TMuonSimulations/Configuration/python/SingleMuonFlatOneOverPt2To7000_PositiveEndCap_cfi.py nevts:10'),
     name = cms.untracked.string('Applications'),
     version = cms.untracked.string('$Revision: 1.19 $')
 )
@@ -61,7 +61,7 @@ process.RAWSIMoutput = cms.OutputModule("PoolOutputModule",
         filterName = cms.untracked.string('')
     ),
     eventAutoFlushCompressedSize = cms.untracked.int32(5242880),
-    fileName = cms.untracked.string('file:SingleNeutrino_PU20.root'),
+    fileName = cms.untracked.string('file:SingleMuon_PositiveEndCap_PU30.root'),
     outputCommands = process.RAWSIMEventContent.outputCommands,
     splitLevel = cms.untracked.int32(0)
 )
@@ -77,20 +77,22 @@ process = ProcessName(process)
 from Configuration.AlCa.GlobalTag import GlobalTag
 process.GlobalTag = GlobalTag(process.GlobalTag, '80X_mcRun2_asymptotic_v14', '')
 
-process.generator = cms.EDProducer("FlatRandomEGunProducer",
+process.generator = cms.EDProducer("FlatRandomPtGunProducer2",
     AddAntiParticle = cms.bool(False),
     PGunParameters = cms.PSet(
-        MaxE = cms.double(10.01),
         MaxEta = cms.double(2.5),
         MaxPhi = cms.double(3.14159265359),
-        MinE = cms.double(9.99),
-        MinEta = cms.double(-2.5),
+        MaxPt = cms.double(7000.0),
+        MinEta = cms.double(1.0),
         MinPhi = cms.double(-3.14159265359),
-        PartID = cms.vint32(12)
+        MinPt = cms.double(2.0),
+        PartID = cms.vint32(-13),
+        PtSpectrum = cms.string('flatOneOverPt'),
+        RandomCharge = cms.bool(True)
     ),
     Verbosity = cms.untracked.int32(0),
     firstRun = cms.untracked.uint32(1),
-    psethack = cms.string('single Nu E 10')
+    psethack = cms.string('single muon+/- pt 2 to 7000 flat in 1/pt positive endcap')
 )
 
 
@@ -132,7 +134,7 @@ process = customizeHLTforFullSim(process)
 # End of customisation functions
 
 # Customisation from command line
-process.mix.input.nbPileupEvents.probValue = cms.vdouble(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+process.mix.input.nbPileupEvents.probValue = cms.vdouble(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
 
 # Customisation from command line
-process.mix.input.nbPileupEvents.probValue = cms.vdouble(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+process.mix.input.nbPileupEvents.probValue = cms.vdouble(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)

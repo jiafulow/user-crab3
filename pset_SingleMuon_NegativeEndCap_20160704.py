@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: L1TMuonSimulations/Configuration/python/SingleMuonFlatOneOverPt2To2000_NegativeEndCap_cfi.py --step GEN,SIM,DIGI:pdigi_valid,L1,DIGI2RAW,HLT:GRun,RAW2DIGI,L1Reco,RECO --mc --eventcontent RAWSIM --datatier GEN-SIM-RAW --processName RAWSIM --era Run2_2016 --conditions 80X_mcRun2_asymptotic_v14 --customise L1TMuonSimulations/Configuration/customise.cust_pgun --beamspot Realistic50ns13TeVCollision --magField 38T_PostLS1 --python_filename pset_SingleMuon_NegativeEndCap.py --fileout file:SingleMuon_NegativeEndCap.root --no_exec -n 100
+# with command line options: L1TMuonSimulations/Configuration/python/SingleMuonFlatOneOverPt2To7000_NegativeEndCap_cfi.py --step GEN,SIM,DIGI:pdigi_valid,L1,DIGI2RAW,HLT:GRun,RAW2DIGI,L1Reco,RECO --mc --eventcontent RAWSIM --datatier GEN-SIM-RAW --processName RAWSIM --era Run2_2016 --conditions 80X_mcRun2_asymptotic_v14 --customise L1TMuonSimulations/Configuration/customise.cust_pgun --beamspot Realistic50ns13TeVCollision --magField 38T_PostLS1 --python_filename pset_SingleMuon_NegativeEndCap.py --fileout file:SingleMuon_NegativeEndCap.root --no_exec -n 100
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.StandardSequences.Eras import eras
@@ -45,7 +45,7 @@ process.options = cms.untracked.PSet(
 
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('L1TMuonSimulations/Configuration/python/SingleMuonFlatOneOverPt2To2000_NegativeEndCap_cfi.py nevts:100'),
+    annotation = cms.untracked.string('L1TMuonSimulations/Configuration/python/SingleMuonFlatOneOverPt2To7000_NegativeEndCap_cfi.py nevts:100'),
     name = cms.untracked.string('Applications'),
     version = cms.untracked.string('$Revision: 1.19 $')
 )
@@ -80,9 +80,9 @@ process.GlobalTag = GlobalTag(process.GlobalTag, '80X_mcRun2_asymptotic_v14', ''
 process.generator = cms.EDProducer("FlatRandomPtGunProducer2",
     AddAntiParticle = cms.bool(False),
     PGunParameters = cms.PSet(
-        MaxEta = cms.double(-0.9),
+        MaxEta = cms.double(-1.0),
         MaxPhi = cms.double(3.14159265359),
-        MaxPt = cms.double(2000.0),
+        MaxPt = cms.double(7000.0),
         MinEta = cms.double(-2.5),
         MinPhi = cms.double(-3.14159265359),
         MinPt = cms.double(2.0),
@@ -92,7 +92,7 @@ process.generator = cms.EDProducer("FlatRandomPtGunProducer2",
     ),
     Verbosity = cms.untracked.int32(0),
     firstRun = cms.untracked.uint32(1),
-    psethack = cms.string('single muon+/- pt 2 to 2000 flat in 1/pt negative endcap')
+    psethack = cms.string('single muon+/- pt 2 to 7000 flat in 1/pt negative endcap')
 )
 
 

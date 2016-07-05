@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: L1TMuonSimulations/Configuration/python/SingleMuonFlatPt100_PositiveEndCap_cfi.py --step GEN,SIM,DIGI:pdigi_valid,L1,DIGI2RAW,HLT:GRun,RAW2DIGI,L1Reco,RECO --mc --eventcontent RAWSIM --datatier GEN-SIM-RAW --processName RAWSIM --era Run2_2016 --conditions 80X_mcRun2_asymptotic_v14 --customise L1TMuonSimulations/Configuration/customise.cust_pgun --beamspot Realistic50ns13TeVCollision --magField 38T_PostLS1 --python_filename pset_SingleMuon_PositiveEndCap_100GeV.py --fileout file:SingleMuon_PositiveEndCap_100GeV.root --no_exec -n 100
+# with command line options: L1TMuonSimulations/Configuration/python/SingleMuonFlatPt200_PositiveEndCap_cfi.py --step GEN,SIM,DIGI:pdigi_valid,L1,DIGI2RAW,HLT:GRun,RAW2DIGI,L1Reco,RECO --mc --eventcontent RAWSIM --datatier GEN-SIM-RAW --processName RAWSIM --era Run2_2016 --conditions 80X_mcRun2_asymptotic_v14 --customise L1TMuonSimulations/Configuration/customise.cust_pgun --beamspot Realistic50ns13TeVCollision --magField 0T --python_filename pset_SingleMuon_PositiveEndCap_0T_200GeV.py --fileout file:SingleMuon_PositiveEndCap_0T_200GeV.root --no_exec -n 100
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.StandardSequences.Eras import eras
@@ -17,7 +17,7 @@ process.load('Configuration.EventContent.EventContent_cff')
 process.load('SimGeneral.MixingModule.mixNoPU_cfi')
 process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
 process.load('Configuration.Geometry.GeometrySimDB_cff')
-process.load('Configuration.StandardSequences.MagneticField_38T_PostLS1_cff')
+process.load('Configuration.StandardSequences.MagneticField_0T_cff')
 process.load('Configuration.StandardSequences.Generator_cff')
 process.load('IOMC.EventVertexGenerators.VtxSmearedRealistic50ns13TeVCollision_cfi')
 process.load('GeneratorInterface.Core.genFilterSummary_cff')
@@ -45,7 +45,7 @@ process.options = cms.untracked.PSet(
 
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('L1TMuonSimulations/Configuration/python/SingleMuonFlatPt100_PositiveEndCap_cfi.py nevts:100'),
+    annotation = cms.untracked.string('L1TMuonSimulations/Configuration/python/SingleMuonFlatPt200_PositiveEndCap_cfi.py nevts:100'),
     name = cms.untracked.string('Applications'),
     version = cms.untracked.string('$Revision: 1.19 $')
 )
@@ -61,7 +61,7 @@ process.RAWSIMoutput = cms.OutputModule("PoolOutputModule",
         filterName = cms.untracked.string('')
     ),
     eventAutoFlushCompressedSize = cms.untracked.int32(5242880),
-    fileName = cms.untracked.string('file:SingleMuon_PositiveEndCap_100GeV.root'),
+    fileName = cms.untracked.string('file:SingleMuon_PositiveEndCap_0T_200GeV.root'),
     outputCommands = process.RAWSIMEventContent.outputCommands,
     splitLevel = cms.untracked.int32(0)
 )
@@ -70,6 +70,7 @@ process.RAWSIMoutput = cms.OutputModule("PoolOutputModule",
 
 # Other statements
 process.genstepfilter.triggerConditions=cms.vstring("generation_step")
+process.g4SimHits.UseMagneticField = cms.bool(False)
 process.mix.digitizers = cms.PSet(process.theDigitizersValid)
 from HLTrigger.Configuration.CustomConfigs import ProcessName
 process = ProcessName(process)
@@ -82,17 +83,17 @@ process.generator = cms.EDProducer("FlatRandomPtGunProducer2",
     PGunParameters = cms.PSet(
         MaxEta = cms.double(2.5),
         MaxPhi = cms.double(3.14159265359),
-        MaxPt = cms.double(100.1),
-        MinEta = cms.double(0.9),
+        MaxPt = cms.double(200.2),
+        MinEta = cms.double(1.0),
         MinPhi = cms.double(-3.14159265359),
-        MinPt = cms.double(100.0),
+        MinPt = cms.double(200.0),
         PartID = cms.vint32(-13),
         PtSpectrum = cms.string('flatPt'),
         RandomCharge = cms.bool(True)
     ),
     Verbosity = cms.untracked.int32(0),
     firstRun = cms.untracked.uint32(1),
-    psethack = cms.string('single muon+/- pt 100 positive endcap')
+    psethack = cms.string('single muon+/- pt 200 positive endcap')
 )
 
 

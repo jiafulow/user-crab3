@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: L1TMuonSimulations/Configuration/python/HCA-RunIISummer15GS-00002-fragment.py --step GEN,SIM,DIGI:pdigi_valid,L1,DIGI2RAW,HLT:GRun,RAW2DIGI,L1Reco,RECO --mc --eventcontent RAWSIM --datatier GEN-SIM-RAW --processName RAWSIM --era Run2_2016 --conditions 80X_mcRun2_asymptotic_v14 --customise L1TMuonSimulations/Configuration/customise.cust_pileup --customise_commands process.mix.input.nbPileupEvents.probValue = cms.vdouble(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0) --beamspot Realistic50ns13TeVCollision --magField 38T_PostLS1 --python_filename pset_SingleNeutrino_PU30.py --fileout file:SingleNeutrino_PU30.root --no_exec -n 10
+# with command line options: L1TMuonSimulations/Configuration/python/SingleMuonFlatPt1000_PositiveEndCap_cfi.py --step GEN,SIM,DIGI:pdigi_valid,L1,DIGI2RAW,HLT:GRun,RAW2DIGI,L1Reco,RECO --mc --eventcontent RAWSIM --datatier GEN-SIM-RAW --processName RAWSIM --era Run2_2016 --conditions 80X_mcRun2_asymptotic_v14 --customise L1TMuonSimulations/Configuration/customise.cust_pgun --beamspot Realistic50ns13TeVCollision --magField 0T --python_filename pset_SingleMuon_PositiveEndCap_0T_1000GeV.py --fileout file:SingleMuon_PositiveEndCap_0T_1000GeV.root --no_exec -n 100
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.StandardSequences.Eras import eras
@@ -17,7 +17,7 @@ process.load('Configuration.EventContent.EventContent_cff')
 process.load('SimGeneral.MixingModule.mixNoPU_cfi')
 process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
 process.load('Configuration.Geometry.GeometrySimDB_cff')
-process.load('Configuration.StandardSequences.MagneticField_38T_PostLS1_cff')
+process.load('Configuration.StandardSequences.MagneticField_0T_cff')
 process.load('Configuration.StandardSequences.Generator_cff')
 process.load('IOMC.EventVertexGenerators.VtxSmearedRealistic50ns13TeVCollision_cfi')
 process.load('GeneratorInterface.Core.genFilterSummary_cff')
@@ -33,7 +33,7 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(10)
+    input = cms.untracked.int32(100)
 )
 
 # Input source
@@ -45,7 +45,7 @@ process.options = cms.untracked.PSet(
 
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('L1TMuonSimulations/Configuration/python/HCA-RunIISummer15GS-00002-fragment.py nevts:10'),
+    annotation = cms.untracked.string('L1TMuonSimulations/Configuration/python/SingleMuonFlatPt1000_PositiveEndCap_cfi.py nevts:100'),
     name = cms.untracked.string('Applications'),
     version = cms.untracked.string('$Revision: 1.19 $')
 )
@@ -61,7 +61,7 @@ process.RAWSIMoutput = cms.OutputModule("PoolOutputModule",
         filterName = cms.untracked.string('')
     ),
     eventAutoFlushCompressedSize = cms.untracked.int32(5242880),
-    fileName = cms.untracked.string('file:SingleNeutrino_PU30.root'),
+    fileName = cms.untracked.string('file:SingleMuon_PositiveEndCap_0T_1000GeV.root'),
     outputCommands = process.RAWSIMEventContent.outputCommands,
     splitLevel = cms.untracked.int32(0)
 )
@@ -70,6 +70,7 @@ process.RAWSIMoutput = cms.OutputModule("PoolOutputModule",
 
 # Other statements
 process.genstepfilter.triggerConditions=cms.vstring("generation_step")
+process.g4SimHits.UseMagneticField = cms.bool(False)
 process.mix.digitizers = cms.PSet(process.theDigitizersValid)
 from HLTrigger.Configuration.CustomConfigs import ProcessName
 process = ProcessName(process)
@@ -77,20 +78,22 @@ process = ProcessName(process)
 from Configuration.AlCa.GlobalTag import GlobalTag
 process.GlobalTag = GlobalTag(process.GlobalTag, '80X_mcRun2_asymptotic_v14', '')
 
-process.generator = cms.EDProducer("FlatRandomEGunProducer",
+process.generator = cms.EDProducer("FlatRandomPtGunProducer2",
     AddAntiParticle = cms.bool(False),
     PGunParameters = cms.PSet(
-        MaxE = cms.double(10.01),
         MaxEta = cms.double(2.5),
         MaxPhi = cms.double(3.14159265359),
-        MinE = cms.double(9.99),
-        MinEta = cms.double(-2.5),
+        MaxPt = cms.double(1001.0),
+        MinEta = cms.double(1.0),
         MinPhi = cms.double(-3.14159265359),
-        PartID = cms.vint32(12)
+        MinPt = cms.double(1000.0),
+        PartID = cms.vint32(-13),
+        PtSpectrum = cms.string('flatPt'),
+        RandomCharge = cms.bool(True)
     ),
     Verbosity = cms.untracked.int32(0),
     firstRun = cms.untracked.uint32(1),
-    psethack = cms.string('single Nu E 10')
+    psethack = cms.string('single muon+/- pt 1000 positive endcap')
 )
 
 
@@ -118,10 +121,10 @@ for path in process.paths:
 # customisation of the process.
 
 # Automatic addition of the customisation function from L1TMuonSimulations.Configuration.customise
-from L1TMuonSimulations.Configuration.customise import cust_pileup 
+from L1TMuonSimulations.Configuration.customise import cust_pgun 
 
-#call to customisation function cust_pileup imported from L1TMuonSimulations.Configuration.customise
-process = cust_pileup(process)
+#call to customisation function cust_pgun imported from L1TMuonSimulations.Configuration.customise
+process = cust_pgun(process)
 
 # Automatic addition of the customisation function from HLTrigger.Configuration.customizeHLTforMC
 from HLTrigger.Configuration.customizeHLTforMC import customizeHLTforFullSim 
@@ -131,8 +134,3 @@ process = customizeHLTforFullSim(process)
 
 # End of customisation functions
 
-# Customisation from command line
-process.mix.input.nbPileupEvents.probValue = cms.vdouble(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
-
-# Customisation from command line
-process.mix.input.nbPileupEvents.probValue = cms.vdouble(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)

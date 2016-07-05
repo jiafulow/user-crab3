@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: L1TMuonSimulations/Configuration/python/tower/SingleMuonFlatOneOverPt3To2000_tt27_cfi.py --step GEN,SIM,DIGI:pdigi_valid,L1,DIGI2RAW,HLT:GRun,RAW2DIGI,L1Reco,RECO --mc --eventcontent RAWSIM --datatier GEN-SIM-RAW --processName RAWSIM --era Run2_2016 --conditions 80X_mcRun2_asymptotic_v14 --customise L1TMuonSimulations/Configuration/customise.cust_pgun --beamspot NoSmear --magField 38T_PostLS1 --python_filename pset_SingleMuon_tt27.py --fileout file:SingleMuon_tt27.root --no_exec -n 100
+# with command line options: L1TMuonSimulations/Configuration/python/tower/SingleMuonFlatOneOverPt2To7000_tt27_cfi.py --step GEN,SIM,DIGI:pdigi_valid,L1,DIGI2RAW,HLT:GRun,RAW2DIGI,L1Reco,RECO --mc --eventcontent RAWSIM --datatier GEN-SIM-RAW --processName RAWSIM --era Run2_2016 --conditions 80X_mcRun2_asymptotic_v14 --customise L1TMuonSimulations/Configuration/customise.cust_pgun --beamspot NoSmear --magField 38T_PostLS1 --python_filename pset_SingleMuon_tt27.py --fileout file:SingleMuon_tt27.root --no_exec -n 100
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.StandardSequences.Eras import eras
@@ -45,7 +45,7 @@ process.options = cms.untracked.PSet(
 
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('L1TMuonSimulations/Configuration/python/tower/SingleMuonFlatOneOverPt3To2000_tt27_cfi.py nevts:100'),
+    annotation = cms.untracked.string('L1TMuonSimulations/Configuration/python/tower/SingleMuonFlatOneOverPt2To7000_tt27_cfi.py nevts:100'),
     name = cms.untracked.string('Applications'),
     version = cms.untracked.string('$Revision: 1.19 $')
 )
@@ -82,10 +82,10 @@ process.generator = cms.EDProducer("FlatRandomPtGunProducer2",
     PGunParameters = cms.PSet(
         MaxEta = cms.double(0.733333333333),
         MaxPhi = cms.double(1.5707963268),
-        MaxPt = cms.double(2000.0),
+        MaxPt = cms.double(7000.0),
         MinEta = cms.double(0.0),
         MinPhi = cms.double(0.785398163398),
-        MinPt = cms.double(3.0),
+        MinPt = cms.double(2.0),
         PartID = cms.vint32(-13),
         PtSpectrum = cms.string('flatOneOverPt'),
         RStarForPhi = cms.double(58.8889),
@@ -96,7 +96,7 @@ process.generator = cms.EDProducer("FlatRandomPtGunProducer2",
     ),
     Verbosity = cms.untracked.int32(0),
     firstRun = cms.untracked.uint32(1),
-    psethack = cms.string('single muon+/- pt 3 to 2000 flat in 1/pt trigger tower 27')
+    psethack = cms.string('single muon+/- pt 2 to 7000 flat in 1/pt trigger tower 27')
 )
 
 

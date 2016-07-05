@@ -9,7 +9,7 @@ config.General.transferLogs = True
 #config.JobType.pluginName = 'Analysis'
 config.JobType.pluginName = 'PrivateMC'
 config.JobType.psetName = 'XX-CONFIG-XX'
-config.JobType.outputFiles = ['XX-OUTPUT-XX']
+#config.JobType.outputFiles = ['Output.root']
 config.JobType.maxMemoryMB = 3000
 
 #config.Data.inputDataset = 'XX-DATASET-XX'
