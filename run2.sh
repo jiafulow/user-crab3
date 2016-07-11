@@ -14,6 +14,8 @@ sed "s@XX-LABEL-XX@$label@g" crab_template.py | sed "s@XX-DATASET-XX@$dataset@g"
 echo "config.Data.unitsPerJob = 500" >> crab.py
 echo "config.Data.totalUnits = config.Data.unitsPerJob * njobs" >> crab.py
 echo "config.JobType.maxMemoryMB = 3500" >> crab.py
+#echo "config.Data.ignoreLocality = True" >> crab.py
+#echo "config.Site.whitelist = ['T2_US_Florida', 'T2_US_Caltech', 'T2_US_MIT', 'T2_US_Nebraska', 'T2_US_Purdue', 'T2_DE_DESY', 'T2_EE_Estonia']" >> crab.py
 crab submit -c crab.py
 #crab submit -c crab.py --dryrun
 cp crab.py crab_projects/${projdir}/
