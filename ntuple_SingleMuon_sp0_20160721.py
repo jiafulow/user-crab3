@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: L1TMuonSimulations/Configuration/python/sector/SingleMuonFlatOneOverPt2To7000_sp0_cfi.py --step GEN,SIM,DIGI:pdigi_valid,L1,DIGI2RAW,RAW2DIGI --mc --no_output --processName RAWSIM --era Run2_2016 --conditions 80X_mcRun2_asymptotic_v14 --customise L1TMuonSimulations/Configuration/customise.cust_pgun --customise L1TMuonSimulations/NtupleTools/customise.cust_ntuple --customise_commands process.p.remove(process.ntupleHLT)  \nprocess.p.remove(process.ntupleReco) --beamspot Realistic50ns13TeVCollision --magField 38T_PostLS1 --python_filename ntuple_SingleMuon_sp0.py --no_exec -n 100
+# with command line options: L1TMuonSimulations/Configuration/python/sector/SingleMuonFlatOneOverPt2To7000_sp0_cfi.py --step GEN,SIM,DIGI:pdigi_valid,L1,DIGI2RAW,RAW2DIGI --mc --no_output --processName RAWSIM --era Run2_2016 --conditions 80X_mcRun2_asymptotic_v14 --customise L1TMuonSimulations/Configuration/customise.cust_pgun --customise L1TMuonSimulations/NtupleTools/customise.cust_ntuple --customise L1TMuonSimulations/NtupleTools/customise.do_less_please --beamspot Realistic50ns13TeVCollision --magField 38T_PostLS1 --python_filename ntuple_SingleMuon_sp0.py --no_exec -n 100
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.StandardSequences.Eras import eras
@@ -60,10 +60,10 @@ process.GlobalTag = GlobalTag(process.GlobalTag, '80X_mcRun2_asymptotic_v14', ''
 process.generator = cms.EDProducer("FlatRandomPtGunProducer2",
     AddAntiParticle = cms.bool(False),
     PGunParameters = cms.PSet(
-        MaxEta = cms.double(2.5),
+        MaxEta = cms.double(2.4),
         MaxPhi = cms.double(1.308996939),
         MaxPt = cms.double(7000.0),
-        MinEta = cms.double(1.0),
+        MinEta = cms.double(1.2),
         MinPhi = cms.double(0.261799387799),
         MinPt = cms.double(2.0),
         PartID = cms.vint32(-13),
@@ -101,17 +101,16 @@ from L1TMuonSimulations.Configuration.customise import cust_pgun
 process = cust_pgun(process)
 
 # Automatic addition of the customisation function from L1TMuonSimulations.NtupleTools.customise
-from L1TMuonSimulations.NtupleTools.customise import cust_ntuple 
+from L1TMuonSimulations.NtupleTools.customise import cust_ntuple,do_less_please 
 
 #call to customisation function cust_ntuple imported from L1TMuonSimulations.NtupleTools.customise
 process = cust_ntuple(process)
 
+#call to customisation function do_less_please imported from L1TMuonSimulations.NtupleTools.customise
+process = do_less_please(process)
+
 # End of customisation functions
 
-# Customisation from command line
-process.p.remove(process.ntupleHLT)  
-process.p.remove(process.ntupleReco)
 
-# Customisation from command line
-process.p.remove(process.ntupleHLT)  
-process.p.remove(process.ntupleReco)
+process.MessageLogger.cerr.FwkReport.reportEvery = 1000
+
