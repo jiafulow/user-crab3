@@ -11,7 +11,8 @@ config.JobType.pluginName = 'Analysis'
 config.JobType.psetName = 'XX-CONFIG-XX'
 #config.JobType.outputFiles = ['Output.root']
 #config.JobType.pyCfgParams = []
-config.JobType.maxMemoryMB = 3500
+config.JobType.maxMemoryMB = 3600
+config.JobType.maxJobRuntimeMin = 1800
 
 config.Data.inputDataset = 'XX-DATASET-XX'
 config.Data.inputDBS = 'global'
@@ -19,11 +20,12 @@ config.Data.inputDBS = 'global'
 #config.Data.splitting = 'FileBased'
 #config.Data.unitsPerJob = 1
 config.Data.splitting = 'EventAwareLumiBased'
-config.Data.unitsPerJob = 1000
+config.Data.unitsPerJob = 20000
+#config.Data.unitsPerJob = 1000
 #config.Data.splitting = 'EventBased'
 #config.Data.unitsPerJob = 100000
-njobs = XX-NJOBS-XX
-config.Data.totalUnits = config.Data.unitsPerJob * njobs
+#njobs = XX-NJOBS-XX
+#config.Data.totalUnits = config.Data.unitsPerJob * njobs
 config.Data.outLFNDirBase = '/store/group/l1upgrades/SLHC/GEN/620_SLHC28p1/XX-LABEL-XX/'
 config.Data.publication = False
 config.Data.outputDatasetTag = 'CRAB3'
@@ -37,5 +39,5 @@ if test_run:
     config.Data.splitting = 'EventAwareLumiBased'
     #config.Data.splitting = 'EventBased'
     config.Data.unitsPerJob = 20
-    config.Data.totalUnits = config.Data.unitsPerJob * 1
+    #config.Data.totalUnits = config.Data.unitsPerJob * 1
 
