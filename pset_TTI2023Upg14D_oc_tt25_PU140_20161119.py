@@ -63,6 +63,16 @@ process.load("SLHCL1TrackTriggerSimulations.NTupleTools.simpleSkimmer_cfi")
 for path in process.paths:
     getattr(process,path)._seq = process.simpleSkimmer * getattr(process,path)._seq
 
+# customisation of the process.
+
+# Automatic addition of the customisation function from SLHCUpgradeSimulations.Configuration.combinedCustoms
+from SLHCUpgradeSimulations.Configuration.combinedCustoms import cust_2023TTI
+
+#call to customisation function cust_2023TTI imported from SLHCUpgradeSimulations.Configuration.combinedCustoms
+process = cust_2023TTI(process)
+
+# End of customisation functions
+
 
 # Configure framework report and summary
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))

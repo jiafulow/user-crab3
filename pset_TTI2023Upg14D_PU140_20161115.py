@@ -53,6 +53,16 @@ process.L1TrackTrigger_step=cms.Path(process.L1TrackTrigger_custom)
 process.p = cms.Path(process.ntupleSequence_TTI)
 process.schedule = cms.Schedule(process.L1TrackTrigger_step,process.p)
 
+# customisation of the process.
+
+# Automatic addition of the customisation function from SLHCUpgradeSimulations.Configuration.combinedCustoms
+from SLHCUpgradeSimulations.Configuration.combinedCustoms import cust_2023TTI
+
+#call to customisation function cust_2023TTI imported from SLHCUpgradeSimulations.Configuration.combinedCustoms
+process = cust_2023TTI(process)
+
+# End of customisation functions
+
 
 # Configure framework report and summary
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
