@@ -128,28 +128,31 @@ process = customiseEarlyDelete(process)
 # ______________________________________________________________________________
 # Modify output
 #process.RAWSIMoutput.outputCommands = ['drop *', 'keep *_genParticles_*_*', 'keep *_simCscTriggerPrimitiveDigis_*_*', 'keep *_simMuonRPCDigis_*_*', 'keep *_simMuonGEMDigis_*_*', 'keep *_simEmtfDigis_*_*']
+process.RAWSIMoutput.outputCommands.append('keep *_mix_MergedTrackTruth_*')
+for x in ['keep *_simMuonGEMDigis_*_*', 'keep *_simMuonGEMPadDigis_*_*', 'keep *_simMuonGEMPadDigiClusters_*_*']:
+    process.RAWSIMoutput.outputCommands.append(x)
 
 # My paths and schedule definitions
 if True:
-    process.RAWSIMoutput.outputCommands.append('keep *_mix_MergedTrackTruth_*')
     process.simMuonRPCDigis.doBkgNoise               = False
     process.simMuonGEMDigis.doBkgNoise               = False
-process.load('L1Trigger.L1TMuonEndCap.fakeEmtfParams_cff')
-#from L1Trigger.L1TMuonEndCap.simEmtfDigis_cfi import simEmtfDigisMC
-#process.simEmtfDigis = simEmtfDigisMC
-process.simEmtfDigis.verbosity = cms.untracked.int32(0)
+if False:
+    from Configuration.StandardSequences.SimL1Emulator_cff import simCscTriggerPrimitiveDigis
+    process.simCscTriggerPrimitiveDigis = simCscTriggerPrimitiveDigis
+    process.simCscTriggerPrimitiveDigis.CSCComparatorDigiProducer = cms.InputTag("simMuonCSCDigis","MuonCSCComparatorDigi")
+    process.simCscTriggerPrimitiveDigis.CSCWireDigiProducer = cms.InputTag("simMuonCSCDigis","MuonCSCWireDigi")
+    from L1Trigger.L1TMuonEndCap.simEmtfDigis_cfi import simEmtfDigisMC
+    process.simEmtfDigis = simEmtfDigisMC
+    process.simEmtfDigis.verbosity = cms.untracked.int32(1)
 if True:
-    #process.simCscTriggerPrimitiveDigis.CSCComparatorDigiProducer = cms.InputTag("simMuonCSCDigis","MuonCSCComparatorDigi")
-    #process.simCscTriggerPrimitiveDigis.CSCWireDigiProducer = cms.InputTag("simMuonCSCDigis","MuonCSCWireDigi")
-
+    process.load('L1Trigger.L1TMuonEndCap.fakeEmtfParams_cff')
     process.simEmtfDigis.spPCParams16.ZoneBoundaries = [0,36,54,96,127]
     process.simEmtfDigis.spPCParams16.UseNewZones    = True
     process.simEmtfDigis.spPCParams16.FixME11Edges   = True
     #process.simEmtfDigis.spPCParams16.CoordLUTDir    = 'ph_lut_v2'
     process.simEmtfDigis.GEMEnable                   = True
-#process.step1 = cms.Path(process.simEmtfDigis)
+process.step1 = cms.Path((process.simCscTriggerPrimitiveDigis) + process.simEmtfDigis)
 #process.schedule = cms.Schedule(process.step1, process.RAWSIMoutput_step)
-#process.schedule = cms.Schedule(process.generation_step,process.genfiltersummary_step,process.simulation_step,process.digitisation_step,process.L1simulation_step,process.L1TrackTrigger_step,process.digi2raw_step,process.raw2digi_step,process.step1,process.endjob_step,process.RAWSIMoutput_step)
 
 
 ## Configure framework report and summary
