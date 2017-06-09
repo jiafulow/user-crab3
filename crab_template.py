@@ -25,7 +25,7 @@ config.Data.splitting = 'EventBased'
 config.Data.unitsPerJob = 1000
 njobs = XX-NJOBS-XX
 config.Data.totalUnits = config.Data.unitsPerJob * njobs
-config.Data.outLFNDirBase = '/store/user/jiafulow/L1MuonTrigger/9_0_0/XX-LABEL-XX/'
+config.Data.outLFNDirBase = '/store/user/jiafulow/L1MuonTrigger/P2_9_2_0/XX-LABEL-XX/'
 config.Data.publication = False
 config.Data.outputDatasetTag = 'CRAB3'
 

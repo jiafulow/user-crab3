@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: L1TMuonSimulations/Configuration/python/SingleMuonFlatOneOverPt2To7000_PositiveEndCap_cfi.py --step GEN,SIM,DIGI:pdigi_valid,L1,L1TrackTrigger,DIGI2RAW,RAW2DIGI --mc --eventcontent RAWSIM --datatier GEN-SIM-DIGI-RAW --processName RAWSIM --conditions 90X_upgrade2023_realistic_v9 --beamspot HLLHC14TeV --geometry Extended2023D4 --era Phase2C2_timing --pileup NoPileUp --python_filename pset_SingleMuon_PositiveEndCap.py --fileout file:SingleMuon_PositiveEndCap.root --no_exec --nThreads 4 -n 100
+# with command line options: L1TMuonSimulations/Configuration/python/SingleMuonFlatOneOverPt2To7000_PositiveEndCap_cfi.py --step GEN,SIM,DIGI:pdigi_valid,L1,L1TrackTrigger,DIGI2RAW,RAW2DIGI --mc --eventcontent RAWSIM --datatier GEN-SIM-DIGI-RAW --processName RAWSIM --conditions auto:phase2_realistic --beamspot HLLHC14TeV --geometry Extended2023D11 --era Phase2C2_timing --pileup NoPileUp --python_filename pset_SingleMuon_PositiveEndCap.py --fileout file:SingleMuon_PositiveEndCap.root --no_exec --nThreads 4 -n 100
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.StandardSequences.Eras import eras
@@ -15,8 +15,8 @@ process.load('SimGeneral.HepPDTESSource.pythiapdt_cfi')
 process.load('FWCore.MessageService.MessageLogger_cfi')
 process.load('Configuration.EventContent.EventContent_cff')
 process.load('SimGeneral.MixingModule.mixNoPU_cfi')
-process.load('Configuration.Geometry.GeometryExtended2023D4Reco_cff')
-process.load('Configuration.Geometry.GeometryExtended2023D4_cff')
+process.load('Configuration.Geometry.GeometryExtended2023D11Reco_cff')
+process.load('Configuration.Geometry.GeometryExtended2023D11_cff')
 process.load('Configuration.StandardSequences.MagneticField_cff')
 process.load('Configuration.StandardSequences.Generator_cff')
 process.load('IOMC.EventVertexGenerators.VtxSmearedHLLHC14TeV_cfi')
@@ -72,7 +72,7 @@ process.RAWSIMoutput = cms.OutputModule("PoolOutputModule",
 process.genstepfilter.triggerConditions=cms.vstring("generation_step")
 process.mix.digitizers = cms.PSet(process.theDigitizersValid)
 from Configuration.AlCa.GlobalTag import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, '90X_upgrade2023_realistic_v9', '')
+process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:phase2_realistic', '')
 
 process.generator = cms.EDProducer("FlatRandomPtGunProducer2",
     AddAntiParticle = cms.bool(False),
@@ -107,6 +107,8 @@ process.RAWSIMoutput_step = cms.EndPath(process.RAWSIMoutput)
 
 # Schedule definition
 process.schedule = cms.Schedule(process.generation_step,process.genfiltersummary_step,process.simulation_step,process.digitisation_step,process.L1simulation_step,process.L1TrackTrigger_step,process.digi2raw_step,process.raw2digi_step,process.endjob_step,process.RAWSIMoutput_step)
+#from PhysicsTools.PatAlgos.tools.helpers import associatePatAlgosToolsTask
+#associatePatAlgosToolsTask(process)
 
 #Setup FWK for multithreaded
 process.options.numberOfThreads=cms.untracked.uint32(4)
@@ -124,18 +126,13 @@ process = customiseEarlyDelete(process)
 # End adding early deletion
 
 
-
 # ______________________________________________________________________________
 # Modify output
 #process.RAWSIMoutput.outputCommands = ['drop *', 'keep *_genParticles_*_*', 'keep *_simCscTriggerPrimitiveDigis_*_*', 'keep *_simMuonRPCDigis_*_*', 'keep *_simMuonGEMDigis_*_*', 'keep *_simEmtfDigis_*_*']
-process.RAWSIMoutput.outputCommands.append('keep *_mix_MergedTrackTruth_*')
-for x in ['keep *_simMuonGEMDigis_*_*', 'keep *_simMuonGEMPadDigis_*_*', 'keep *_simMuonGEMPadDigiClusters_*_*']:
-    process.RAWSIMoutput.outputCommands.append(x)
+process.RAWSIMoutput.outputCommands += ['keep *_mix_MergedTrackTruth_*']
+process.RAWSIMoutput.outputCommands += ['keep *_simMuonGEMDigis_*_*', 'keep *_simMuonGEMPadDigis_*_*', 'keep *_simMuonGEMPadDigiClusters_*_*']
 
 # My paths and schedule definitions
-if True:
-    process.simMuonRPCDigis.doBkgNoise               = False
-    process.simMuonGEMDigis.doBkgNoise               = False
 if False:
     from Configuration.StandardSequences.SimL1Emulator_cff import simCscTriggerPrimitiveDigis
     process.simCscTriggerPrimitiveDigis = simCscTriggerPrimitiveDigis
@@ -144,15 +141,18 @@ if False:
     from L1Trigger.L1TMuonEndCap.simEmtfDigis_cfi import simEmtfDigisMC
     process.simEmtfDigis = simEmtfDigisMC
     process.simEmtfDigis.verbosity = cms.untracked.int32(1)
-if True:
-    process.load('L1Trigger.L1TMuonEndCap.fakeEmtfParams_cff')
+if False:
     process.simEmtfDigis.spPCParams16.ZoneBoundaries = [0,36,54,96,127]
     process.simEmtfDigis.spPCParams16.UseNewZones    = True
-    process.simEmtfDigis.spPCParams16.FixME11Edges   = True
-    #process.simEmtfDigis.spPCParams16.CoordLUTDir    = 'ph_lut_v2'
+    process.simEmtfDigis.RPCEnable                   = True
     process.simEmtfDigis.GEMEnable                   = True
+    process.simEmtfDigis.Era                         = cms.string('Phase2C2')
+    #process.simEmtfDigis.spPAParams16.PtLUTVersion   = cms.int32(5)
+if True:
+    from L1Trigger.L1TMuonEndCap.customise_Phase2C2 import customise as customise_Phase2C2
+    process = customise_Phase2C2(process)
 process.step1 = cms.Path((process.simCscTriggerPrimitiveDigis) + process.simEmtfDigis)
-#process.schedule = cms.Schedule(process.step1, process.RAWSIMoutput_step)
+process.schedule.remove(process.L1TrackTrigger_step)
 
 
 ## Configure framework report and summary
