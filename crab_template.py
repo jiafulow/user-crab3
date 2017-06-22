@@ -40,6 +40,6 @@ test_run = False
 if test_run:
     #config.Data.splitting = 'EventAwareLumiBased'
     config.Data.splitting = 'EventBased'
-    config.Data.unitsPerJob = 100
+    config.Data.unitsPerJob = 10
     config.Data.totalUnits = config.Data.unitsPerJob * 1
 
