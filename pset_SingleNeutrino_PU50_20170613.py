@@ -61,7 +61,7 @@ process.RAWSIMoutput = cms.OutputModule("PoolOutputModule",
         filterName = cms.untracked.string('')
     ),
     eventAutoFlushCompressedSize = cms.untracked.int32(20971520),
-    fileName = cms.untracked.string('file:SingleNeutrino.root'),
+    fileName = cms.untracked.string('file:SingleNeutrino_PU50.root'),
     outputCommands = process.RAWSIMEventContent.outputCommands,
     splitLevel = cms.untracked.int32(0)
 )
@@ -69,7 +69,7 @@ process.RAWSIMoutput = cms.OutputModule("PoolOutputModule",
 # Additional output definition
 
 # Other statements
-process.mix.input.nbPileupEvents.averageNumber = cms.double(140.000000)
+process.mix.input.nbPileupEvents.averageNumber = cms.double(50.000000)
 process.mix.bunchspace = cms.int32(25)
 process.mix.minBunch = cms.int32(-3)
 process.mix.maxBunch = cms.int32(3)
