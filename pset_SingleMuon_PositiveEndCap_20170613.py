@@ -151,7 +151,6 @@ if True:
     from L1Trigger.L1TMuonEndCap.customise_Phase2C2 import customise as customise_Phase2C2
     process = customise_Phase2C2(process)
 process.step1 = cms.Path((process.simCscTriggerPrimitiveDigis) + process.simEmtfDigis)
-process.schedule.remove(process.L1TrackTrigger_step)
 
 
 ## Configure framework report and summary
