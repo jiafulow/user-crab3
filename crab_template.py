@@ -36,11 +36,22 @@ config.Data.outputDatasetTag = 'CRAB3'
 #config.Site.storageSite = 'T2_US_Florida'
 config.Site.storageSite = 'T3_US_FNALLPC'
 
+tweak_memory = True
+if tweak_memory:
+    label = 'XX-LABEL-XX'
+    if 'PU50' in label:
+        config.JobType.maxMemoryMB = 4700 + 400
+    elif 'PU100' in label:
+        config.JobType.maxMemoryMB = 5300 + 500
+    elif 'PU140' in label:
+        config.JobType.maxMemoryMB = 5900 + 600
+    elif 'PU200' in label:
+        config.JobType.maxMemoryMB = 6800 + 700
 
 test_run = False
 if test_run:
     #config.Data.splitting = 'EventAwareLumiBased'
     config.Data.splitting = 'EventBased'
-    config.Data.unitsPerJob = 10
+    config.Data.unitsPerJob = 100
     config.Data.totalUnits = config.Data.unitsPerJob * 1
 
