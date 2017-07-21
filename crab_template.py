@@ -13,7 +13,7 @@ config.JobType.psetName = 'XX-CONFIG-XX'
 #config.JobType.pyCfgParams = []
 config.JobType.maxMemoryMB = 4000
 config.JobType.maxJobRuntimeMin = 1315*2
-config.JobType.numCores = 4
+#config.JobType.numCores = 4
 
 #config.Data.inputDataset = 'XX-DATASET-XX'
 #config.Data.inputDBS = 'global'
@@ -36,7 +36,7 @@ config.Data.outputDatasetTag = 'CRAB3'
 #config.Site.storageSite = 'T2_US_Florida'
 config.Site.storageSite = 'T3_US_FNALLPC'
 
-tweak_memory = True
+tweak_memory = False
 if tweak_memory:
     label = 'XX-LABEL-XX'
     if 'PU50' in label:

@@ -12,7 +12,6 @@ pset = imp.load_module(cfgBaseName, file, pathname, description)
 config.JobType.pluginName = 'Analysis'
 delattr(config.JobType, "maxMemoryMB")
 delattr(config.JobType, "maxJobRuntimeMin")
-delattr(config.JobType, "numCores")
 config.Data.userInputFiles = list(pset.process.source.fileNames)
 config.Data.splitting = 'FileBased'
 config.Data.unitsPerJob = 20
