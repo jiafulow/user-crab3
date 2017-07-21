@@ -11,4 +11,4 @@ echo "[INFO] Using CMSSW_BASE: $CMSSW_BASE"
 #./run.sh pset_SingleNeutrino_PU100_20170613.py                      ParticleGuns 2000
 #./run.sh pset_SingleNeutrino_PU140_20170613.py                      ParticleGuns 2000
 #./run.sh pset_SingleNeutrino_PU200_20170613.py                      ParticleGuns 2000
-./run.sh pset_SingleNeutrino_r281707_20170613.py                    ParticleGuns 2000
+./run.sh pset_SingleNeutrino_r281707_run2_20170613.py               ParticleGuns 2000
