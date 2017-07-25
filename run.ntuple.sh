@@ -14,7 +14,7 @@ delattr(config.JobType, "maxMemoryMB")
 delattr(config.JobType, "maxJobRuntimeMin")
 config.Data.userInputFiles = list(pset.process.source.fileNames)
 config.Data.splitting = 'FileBased'
-config.Data.unitsPerJob = 20
+config.Data.unitsPerJob = 10
 config.Data.totalUnits = len(config.Data.userInputFiles)
 #
 config.Data.ignoreLocality = True
