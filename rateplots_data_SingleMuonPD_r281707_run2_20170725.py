@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: l1Ntuple --step RAW2DIGI --data --eventcontent RAW --era Run2_2016 --conditions auto:run2_data --customise L1Trigger/Configuration/customiseReEmul.L1TReEmulFromRAW --filein /store/express/Run2016H/ExpressPhysics/FEVT/Express-v2/000/281/707/00000/008389AD-A684-E611-9B1D-FA163E480423.root --no_exec -n 100
+# with command line options: l1Ntuple --step RAW2DIGI --data --eventcontent RAW --era Run2_2016 --conditions auto:run2_data --customise L1Trigger/Configuration/customiseReEmul.L1TReEmulFromRAW --filein /store/data/Run2016H/SingleMuon/RAW/v1/000/281/707/00000/14FEA8EB-B984-E611-9269-02163E012B55.root --no_exec -n 100
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.StandardSequences.Eras import eras
@@ -26,7 +26,7 @@ process.maxEvents = cms.untracked.PSet(
 
 # Input source
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring('/store/express/Run2016H/ExpressPhysics/FEVT/Express-v2/000/281/707/00000/008389AD-A684-E611-9B1D-FA163E480423.root'),
+    fileNames = cms.untracked.vstring('/store/data/Run2016H/SingleMuon/RAW/v1/000/281/707/00000/14FEA8EB-B984-E611-9269-02163E012B55.root'),
     secondaryFileNames = cms.untracked.vstring(),
     lumisToProcess = cms.untracked.VLuminosityBlockRange(),
 )
@@ -112,7 +112,7 @@ if True:
     )
     from L1TMuonSimulations.Analyzers.rpcintegration_cfi import *
     process.load("L1TMuonSimulations.Analyzers.rpcintegration_cfi")
-    process.trackcounting.outFileName = "rateplots.root"
+    process.trackcounting.outFileName = "rateplots_data.root"
     process.trackcounting.verbosity = 1
     process.p = cms.Path(process.trackcounting)
     use_fs_trackcounting(process)
@@ -125,6 +125,9 @@ process.maxEvents.input = -1
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.MessageLogger.cerr.FwkReport.reportEvery = 1000
 
-# Dump the full python config
-with open("dump.py", "w") as f:
-    f.write(process.dumpPython())
+# Run in unscheduled mode
+process.options.allowUnscheduled = cms.untracked.bool(True)
+
+## Dump the full python config
+#with open("dump.py", "w") as f:
+#    f.write(process.dumpPython())
