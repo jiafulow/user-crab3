@@ -117,7 +117,8 @@ if True:
     process.p = cms.Path(process.trackcounting)
     use_fs_trackcounting(process)
 
-process.schedule = cms.Schedule(process.raw2digi_step, process.L1TReEmulPath, process.p)
+#process.schedule = cms.Schedule(process.raw2digi_step, process.L1TReEmulPath, process.p)
+process.schedule = cms.Schedule(process.p)
 #process.maxEvents.input = -1
 
 
