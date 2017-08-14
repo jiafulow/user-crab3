@@ -14,8 +14,7 @@ process.load('Configuration.StandardSequences.Services_cff')
 process.load('SimGeneral.HepPDTESSource.pythiapdt_cfi')
 process.load('FWCore.MessageService.MessageLogger_cfi')
 process.load('Configuration.EventContent.EventContent_cff')
-#process.load('SimGeneral.MixingModule.mix_POISSON_average_cfi')
-process.load('SimGeneral.MixingModule.mixNoPU_cfi')
+process.load('SimGeneral.MixingModule.mix_POISSON_average_cfi')
 process.load('Configuration.Geometry.GeometryExtended2023D17Reco_cff')
 process.load('Configuration.Geometry.GeometryExtended2023D17_cff')
 process.load('Configuration.StandardSequences.MagneticField_cff')
@@ -36,8 +35,7 @@ process.maxEvents = cms.untracked.PSet(
 )
 
 # Input source
-#process.source = cms.Source("EmptySource")
-process.source = cms.Source("PoolSource", fileNames = cms.untracked.vstring('dummy.root') )
+process.source = cms.Source("EmptySource")
 
 process.options = cms.untracked.PSet(
 
@@ -53,9 +51,9 @@ process.configurationMetadata = cms.untracked.PSet(
 # Output definition
 
 process.RAWSIMoutput = cms.OutputModule("PoolOutputModule",
-    #SelectEvents = cms.untracked.PSet(
-    #    SelectEvents = cms.vstring('generation_step')
-    #),
+    SelectEvents = cms.untracked.PSet(
+        SelectEvents = cms.vstring('generation_step')
+    ),
     compressionAlgorithm = cms.untracked.string('LZMA'),
     compressionLevel = cms.untracked.int32(9),
     dataset = cms.untracked.PSet(
@@ -72,10 +70,15 @@ process.RAWSIMoutput = cms.OutputModule("PoolOutputModule",
 
 # Other statements
 #process.mix.input.nbPileupEvents.averageNumber = cms.double(140.000000)
-#process.mix.bunchspace = cms.int32(25)
-#process.mix.minBunch = cms.int32(-3)
-#process.mix.maxBunch = cms.int32(3)
-#process.mix.input.fileNames = cms.untracked.vstring(['dummy.root'])
+process.mix.input.nbPileupEvents = cms.PSet(
+    probFunctionVariable = cms.vint32(0,1,),
+    probValue = cms.vdouble(0,1,),
+    histoFileName = cms.untracked.string('histProbFunction.root'),
+)
+process.mix.bunchspace = cms.int32(25)
+process.mix.minBunch = cms.int32(-3)
+process.mix.maxBunch = cms.int32(3)
+process.mix.input.fileNames = cms.untracked.vstring(['dummy.root'])
 process.genstepfilter.triggerConditions=cms.vstring("generation_step")
 process.mix.digitizers = cms.PSet(process.theDigitizersValid)
 from Configuration.AlCa.GlobalTag import GlobalTag
@@ -111,8 +114,7 @@ process.endjob_step = cms.EndPath(process.endOfProcess)
 process.RAWSIMoutput_step = cms.EndPath(process.RAWSIMoutput)
 
 # Schedule definition
-#process.schedule = cms.Schedule(process.generation_step,process.genfiltersummary_step,process.simulation_step,process.digitisation_step,process.L1simulation_step,process.L1TrackTrigger_step,process.digi2raw_step,process.raw2digi_step,process.endjob_step,process.RAWSIMoutput_step)
-process.schedule = cms.Schedule(process.digitisation_step,process.L1simulation_step,process.L1TrackTrigger_step,process.digi2raw_step,process.raw2digi_step,process.endjob_step,process.RAWSIMoutput_step)
+process.schedule = cms.Schedule(process.generation_step,process.genfiltersummary_step,process.simulation_step,process.digitisation_step,process.L1simulation_step,process.L1TrackTrigger_step,process.digi2raw_step,process.raw2digi_step,process.endjob_step,process.RAWSIMoutput_step)
 #from PhysicsTools.PatAlgos.tools.helpers import associatePatAlgosToolsTask
 #associatePatAlgosToolsTask(process)
 
@@ -120,8 +122,8 @@ process.schedule = cms.Schedule(process.digitisation_step,process.L1simulation_s
 #process.options.numberOfThreads=cms.untracked.uint32(4)
 #process.options.numberOfStreams=cms.untracked.uint32(0)
 # filter all path with the production filter sequence
-#for path in process.paths:
-#	getattr(process,path)._seq = process.generator * getattr(process,path)._seq 
+for path in process.paths:
+	getattr(process,path)._seq = process.generator * getattr(process,path)._seq 
 
 
 # Customisation from command line
@@ -139,8 +141,7 @@ if True:
   txt = 'L1TMuonSimulations/Configuration/data/input_MinBias.txt'
   txt = os.path.join(os.environ['CMSSW_BASE'], 'src', txt)
   fileNames_txt = loadFromFile(txt)
-  #process.mix.input.fileNames = fileNames_txt
-  process.source.fileNames = fileNames_txt
+  process.mix.input.fileNames = fileNames_txt
 
 # Modify output
 process.RAWSIMoutput.outputCommands += ['keep *_genParticles_*_*', 'keep *_mix_MergedTrackTruth_*', 'keep *_mix_Tracker_*']
