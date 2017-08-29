@@ -12,3 +12,5 @@ echo "[INFO] Using CMSSW_BASE: $CMSSW_BASE"
 ./run.ntuple.sh rateplots_mc_SingleNeutrino_PU100_20170725.py                     ParticleGuns -1
 ./run.ntuple.sh rateplots_mc_SingleNeutrino_PU140_20170725.py                     ParticleGuns -1
 ./run.ntuple.sh rateplots_mc_SingleNeutrino_PU200_20170725.py                     ParticleGuns -1
+
+#./run.ntuple.sh minbiasmuonanalyzer_cfg_20170725.py                               MinBias      -1
