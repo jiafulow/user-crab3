@@ -172,6 +172,7 @@ if True:
     process.schedule.remove(process.L1TrackTrigger_step)
     process.simEmtfDigis.GEMEnable                   = False
     process.simEmtfDigis.IRPCEnable                  = False
+    process.simEmtfDigis.ME0Enable                   = False
     process.simEmtfDigis.TTEnable                    = False
 process.step1 = cms.Path((process.simCscTriggerPrimitiveDigis) + process.simEmtfDigis)
 

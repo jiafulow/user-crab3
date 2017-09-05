@@ -104,6 +104,7 @@ if True:
     #process.schedule.remove(process.L1TrackTrigger_step)
     process.simEmtfDigis.GEMEnable                   = False
     process.simEmtfDigis.IRPCEnable                  = False
+    process.simEmtfDigis.ME0Enable                   = False
     process.simEmtfDigis.TTEnable                    = False
 if True:
     process.TFileService = cms.Service("TFileService",
@@ -114,7 +115,7 @@ if True:
     process.load("L1TMuonSimulations.Analyzers.rpcintegration_cfi")
     process.trackcounting.outFileName = "rateplots_data.root"
     process.trackcounting.verbosity = 1
-    process.p = cms.Path(process.trackcounting)
+    process.p = cms.Path(process.simEmtfDigis * process.trackcounting)
     use_fs_trackcounting(process)
 
 process.schedule = cms.Schedule(process.raw2digi_step, process.L1TReEmulPath, process.p)
