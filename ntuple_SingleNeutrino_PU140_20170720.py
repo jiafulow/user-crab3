@@ -47,6 +47,8 @@ if True:
   #
   process.maxEvents.input = cms.untracked.int32(1000)
   process.MessageLogger.cerr.FwkReport.reportEvery = 100
+if True:
+  process.simEmtfDigis.ME0Enable                   = False
 
 
 ## Configure framework report and summary
