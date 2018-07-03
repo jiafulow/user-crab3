@@ -11,9 +11,9 @@ config.JobType.pluginName = 'PrivateMC'
 config.JobType.psetName = 'XX-CONFIG-XX'
 #config.JobType.outputFiles = ['Output.root']
 #config.JobType.pyCfgParams = []
-config.JobType.maxMemoryMB = 5000
-config.JobType.maxJobRuntimeMin = 1315*2
-config.JobType.numCores = 4
+config.JobType.maxMemoryMB = 5500
+config.JobType.maxJobRuntimeMin = 1315
+#config.JobType.numCores = 4
 
 #config.Data.inputDataset = 'XX-DATASET-XX'
 #config.Data.inputDBS = 'global'
@@ -25,11 +25,11 @@ config.Data.outputPrimaryDataset = 'XX-DATASET-XX'
 config.Data.splitting = 'EventBased'
 config.Data.unitsPerJob = 1000  # for ParticleGuns
 #config.Data.unitsPerJob = 10000  # for single MinBias
-#config.Data.unitsPerJob = 100  # for PU140 events
+#config.Data.unitsPerJob = 100  # for PU200 events
 njobs = XX-NJOBS-XX
 config.Data.totalUnits = config.Data.unitsPerJob * njobs
-#config.Data.outLFNDirBase = '/store/user/jiafulow/L1MuonTrigger/P2_9_2_3_patch1/XX-LABEL-XX/'
-config.Data.outLFNDirBase = '/store/group/l1upgrades/L1MuonTrigger/P2_9_2_3_patch1/XX-LABEL-XX/'
+#config.Data.outLFNDirBase = '/store/user/jiafulow/L1MuonTrigger/P2_10_1_5/XX-LABEL-XX/'
+config.Data.outLFNDirBase = '/store/group/l1upgrades/L1MuonTrigger/P2_10_1_5/XX-LABEL-XX/'
 config.Data.publication = False
 config.Data.outputDatasetTag = 'CRAB3'
 

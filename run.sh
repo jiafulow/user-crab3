@@ -11,7 +11,7 @@ mkdir -p crab_projects crab_projects_old
 rm -rf crab_projects_old/${projdir}
 
 if [ -d crab_projects/${projdir} ]; then
-  taskname=`grep 'Task name' crab_projects/${projdir}/crab.log | head -1 | sed -e 's/.* \([0-9]\+_[0-9]\+\):.*/\1/'`
+  taskname=`grep 'Task name' crab_projects/${projdir}/crab.log | head -1 | sed -e 's/.*\s\+\([0-9]\+_[0-9]\+\):.*/\1/'`
   mv crab_projects/${projdir} crab_projects_old/${projdir}_${taskname}
 fi
 

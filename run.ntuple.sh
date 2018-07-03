@@ -5,7 +5,7 @@ cat <<EOF >>crab.py
 # customise for ntuple
 import os
 import imp
-cfgBaseName = os.path.basename('$config').replace('.py', '')
+cfgBaseName = config.JobType.psetName.replace('.py', '')
 file, pathname, description = imp.find_module(cfgBaseName)
 pset = imp.load_module(cfgBaseName, file, pathname, description)
 #
@@ -16,7 +16,7 @@ delattr(config.JobType, "maxJobRuntimeMin")
 config.Data.userInputFiles = list(pset.process.source.fileNames)
 config.Data.splitting = 'FileBased'
 #config.Data.unitsPerJob = 50  # for ParticleGuns
-config.Data.unitsPerJob = 20   # for PU140
+config.Data.unitsPerJob = 10   # for PU200
 config.Data.totalUnits = len(config.Data.userInputFiles)
 #
 config.Data.ignoreLocality = True
@@ -38,7 +38,7 @@ mkdir -p crab_projects crab_projects_old
 rm -rf crab_projects_old/${projdir}
 
 if [ -d crab_projects/${projdir} ]; then
-  taskname=`grep 'Task name' crab_projects/${projdir}/crab.log | head -1 | sed -e 's/.* \([0-9]\+_[0-9]\+\):.*/\1/'`
+  taskname=`grep 'Task name' crab_projects/${projdir}/crab.log | head -1 | sed -e 's/.*\s\+\([0-9]\+_[0-9]\+\):.*/\1/'`
   mv crab_projects/${projdir} crab_projects_old/${projdir}_${taskname}
 fi
 
@@ -46,6 +46,7 @@ sed "s@XX-LABEL-XX@$label@g" crab_template.py | sed "s@XX-DATASET-XX@$dataset@g"
 
 customise_for_ntuple
 
-crab submit -c crab.py
+#crab submit -c crab.py
 #crab submit -c crab.py --dryrun
+./crab_submit.py
 cp crab.py crab_projects/${projdir}/
