@@ -11,8 +11,8 @@ config.JobType.pluginName = 'PrivateMC'
 config.JobType.psetName = 'XX-CONFIG-XX'
 #config.JobType.outputFiles = ['Output.root']
 #config.JobType.pyCfgParams = []
-config.JobType.maxMemoryMB = 4000
-config.JobType.maxJobRuntimeMin = 840
+config.JobType.maxMemoryMB = 3800
+config.JobType.maxJobRuntimeMin = 900
 #config.JobType.numCores = 4
 
 #config.Data.inputDataset = 'XX-DATASET-XX'
