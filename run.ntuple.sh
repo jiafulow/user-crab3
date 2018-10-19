@@ -14,8 +14,8 @@ config.JobType.maxMemoryMB = 2500
 config.JobType.maxJobRuntimeMin = 600
 config.Data.userInputFiles = list(pset.process.source.fileNames)
 config.Data.splitting = 'FileBased'
-#config.Data.unitsPerJob = 50  # for ParticleGuns
-config.Data.unitsPerJob = 10   # for PU200
+config.Data.unitsPerJob = 50  # for ParticleGuns
+#config.Data.unitsPerJob = 10   # for PU200
 config.Data.totalUnits = len(config.Data.userInputFiles)
 #
 config.Data.ignoreLocality = True
