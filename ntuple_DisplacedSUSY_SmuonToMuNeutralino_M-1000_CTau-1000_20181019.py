@@ -132,7 +132,8 @@ if True:
   from L1TMuonSimulations.Configuration.tools import *
   txt = 'L1TMuonSimulations/Configuration/data/DisplacedSUSY/input_DisplacedSUSY_SmuonToMuNeutralino_M-1000_CTau-1000.txt'
   txt = os.path.join(os.environ['CMSSW_BASE'], 'src', txt)
-  fileNames_txt = loadFromFile(txt, fmt='')
+  #fileNames_txt = loadFromFile(txt, fmt='')
+  fileNames_txt = loadFromFile(txt, fmt='root://cms-aaa-proxy695.gridpp.rl.ac.uk:1094/%s')
   process.source.fileNames = fileNames_txt
 
 # ______________________________________________________________________________

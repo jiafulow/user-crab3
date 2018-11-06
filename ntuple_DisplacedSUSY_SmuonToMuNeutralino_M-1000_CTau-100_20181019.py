@@ -130,7 +130,8 @@ process = customiseEarlyDelete(process)
 # Modify input files
 if True:
   from L1TMuonSimulations.Configuration.tools import *
-  txt = 'L1TMuonSimulations/Configuration/data/DisplacedSUSY/input_DisplacedSUSY_SmuonToMuNeutralino_M-1000_CTau-100.txt'
+  #txt = 'L1TMuonSimulations/Configuration/data/DisplacedSUSY/input_DisplacedSUSY_SmuonToMuNeutralino_M-1000_CTau-100.txt'
+  txt = 'L1TMuonSimulations/Configuration/data/DisplacedSUSY/input_DisplacedSUSY_SmuonToMuNeutralino_M-1000_CTau-100_1.txt'
   txt = os.path.join(os.environ['CMSSW_BASE'], 'src', txt)
   fileNames_txt = loadFromFile(txt, fmt='')
   process.source.fileNames = fileNames_txt
