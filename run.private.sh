@@ -1,8 +1,8 @@
 #!/bin/bash
 
-customise_for_ntuple() {
+customise() {
 cat <<EOF >>crab.py
-# customise for ntuple
+# Customise for running over private input files
 import os
 import imp
 cfgBaseName = config.JobType.psetName.replace('.py', '')
@@ -10,7 +10,7 @@ file, pathname, description = imp.find_module(cfgBaseName)
 pset = imp.load_module(cfgBaseName, file, pathname, description)
 #
 config.JobType.pluginName = 'Analysis'
-config.JobType.maxMemoryMB = 2500
+config.JobType.maxMemoryMB = 3000
 config.JobType.maxJobRuntimeMin = 600
 config.Data.userInputFiles = list(pset.process.source.fileNames)
 config.Data.splitting = 'FileBased'
@@ -43,7 +43,7 @@ fi
 
 sed "s@XX-LABEL-XX@$label@g" crab_template.py | sed "s@XX-DATASET-XX@$dataset@g" | sed "s@XX-CONFIG-XX@$config@g" | sed "s@XX-NJOBS-XX@$njobs@g"  > crab.py
 
-customise_for_ntuple
+customise
 
 crab submit -c crab.py
 #crab submit -c crab.py --dryrun

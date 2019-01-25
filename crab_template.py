@@ -11,8 +11,8 @@ config.JobType.pluginName = 'PrivateMC'
 config.JobType.psetName = 'XX-CONFIG-XX'
 #config.JobType.outputFiles = ['Output.root']
 #config.JobType.pyCfgParams = []
-config.JobType.maxMemoryMB = 3800
-config.JobType.maxJobRuntimeMin = 900
+config.JobType.maxMemoryMB = 3600
+config.JobType.maxJobRuntimeMin = 840
 #config.JobType.numCores = 4
 
 #config.Data.inputDataset = 'XX-DATASET-XX'
@@ -35,18 +35,6 @@ config.Data.outputDatasetTag = 'CRAB3'
 
 #config.Site.storageSite = 'T2_US_Florida'
 config.Site.storageSite = 'T3_US_FNALLPC'
-
-tweak_memory = False
-if tweak_memory:
-    label = 'XX-LABEL-XX'
-    if 'PU50' in label:
-        config.JobType.maxMemoryMB = 4700 + 400
-    elif 'PU100' in label:
-        config.JobType.maxMemoryMB = 5300 + 500
-    elif 'PU140' in label:
-        config.JobType.maxMemoryMB = 5900 + 600
-    elif 'PU200' in label:
-        config.JobType.maxMemoryMB = 6800 + 700
 
 test_run = False
 if test_run:
