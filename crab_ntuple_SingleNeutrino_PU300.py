@@ -54,7 +54,7 @@ config.Data.unitsPerJob = 10   # for PU200
 config.Data.ignoreLocality = True
 #config.Site.whitelist = ['T2_US_*']
 #config.Site.whitelist = ['T2_US_UCSD','T2_US_Wisconsin','T2_US_Florida','T2_US_MIT','T2_US_Nebraska', 'T2_US_Purdue', 'T3_US_FNALLPC']
-config.Site.whitelist = ['T2_UK_*']
+config.Site.whitelist = ['T2_US_Florida']
 #config.Site.ignoreGlobalBlacklist = True
 
 # See https://twiki.cern.ch/twiki/bin/view/CMSPublic/CRAB3FAQ#What_is_glideinWms_Overflow_and

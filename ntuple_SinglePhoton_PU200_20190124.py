@@ -34,6 +34,10 @@ process.source = cms.Source("PoolSource",
     secondaryFileNames = cms.untracked.vstring(),
     inputCommands = cms.untracked.vstring(),
     #skipEvents = cms.untracked.uint32(1090),
+
+    # Fix 'Operation expired' error at T1_UK_RAL
+    # https://twiki.cern.ch/twiki/bin/view/CMSPublic/CRAB3FAQ#ERROR_Operation_expired
+    duplicateCheckMode = cms.untracked.string("noDuplicateCheck"),
 )
 
 process.options = cms.untracked.PSet(
