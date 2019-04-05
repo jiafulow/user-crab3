@@ -14,14 +14,17 @@ config.JobType.maxMemoryMB = 3000
 config.JobType.maxJobRuntimeMin = 600
 config.Data.userInputFiles = list(pset.process.source.fileNames)
 config.Data.splitting = 'FileBased'
-#config.Data.unitsPerJob = 50  # for ParticleGuns
-config.Data.unitsPerJob = 10   # for PU200
+config.Data.unitsPerJob = njobs
 config.Data.totalUnits = len(config.Data.userInputFiles)
 #
 config.Data.ignoreLocality = True
-#config.Site.whitelist = ['T3_US_FNALLPC']
-config.Site.whitelist = ['T3_US_Baylor','T2_US_Caltech','T3_US_Colorado','T3_US_Cornell','T3_US_FIT','T3_US_FIU','T1_US_FNAL','T3_US_FNALLPC','T2_US_Florida','T3_US_JHU','T3_US_Kansas','T2_US_MIT','T3_US_NotreDame','T2_US_Nebraska','T3_US_OSU','T3_US_Princeton_ICSE','T2_US_Purdue','T3_US_Rice','T3_US_Rutgers','T3_US_MIT','T3_US_NERSC','T3_US_PSC','T3_US_SDSC','T3_US_FIU','T3_US_FSU','T3_US_OSG','T3_US_TACC','T3_US_TAMU','T3_US_TTU','T3_US_UCR','T3_US_UCD','T2_US_UCSD','T3_US_UMD','T3_US_UMiss','T3_US_PuertoRico','T3_US_VC3_NotreDame','T2_US_Vanderbilt','T2_US_Wisconsin']
+config.Site.whitelist = ['T3_US_FNALLPC']
+#config.Site.whitelist = ['T3_US_Baylor','T2_US_Caltech','T3_US_Colorado','T3_US_Cornell','T3_US_FIT','T3_US_FIU','T1_US_FNAL','T3_US_FNALLPC','T2_US_Florida','T3_US_JHU','T3_US_Kansas','T2_US_MIT','T3_US_NotreDame','T2_US_Nebraska','T3_US_OSU','T3_US_Princeton_ICSE','T2_US_Purdue','T3_US_Rice','T3_US_Rutgers','T3_US_MIT','T3_US_NERSC','T3_US_PSC','T3_US_SDSC','T3_US_FIU','T3_US_FSU','T3_US_OSG','T3_US_TACC','T3_US_TAMU','T3_US_TTU','T3_US_UCR','T3_US_UCD','T2_US_UCSD','T3_US_UMD','T3_US_UMiss','T3_US_PuertoRico','T3_US_VC3_NotreDame','T2_US_Vanderbilt','T2_US_Wisconsin']
 config.Site.ignoreGlobalBlacklist = True
+#
+## See https://twiki.cern.ch/twiki/bin/view/CMSPublic/CRAB3FAQ#What_is_glideinWms_Overflow_and
+#config.section_("Debug")
+#config.Debug.extraJDL = ['+CMS_ALLOW_OVERFLOW=False'
 EOF
 }
 

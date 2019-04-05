@@ -3,24 +3,25 @@
 echo "[INFO] Using CMSSW_BASE: $CMSSW_BASE"
 
 ## Running over private input files
-#./run.private.sh ntuple_SingleNeutrino_PU140_20190124.py  ParticleGuns -1
-#./run.private.sh ntuple_SingleNeutrino_PU200_20190124.py  ParticleGuns -1
-#./run.private.sh ntuple_SingleNeutrino_PU250_20190124.py  ParticleGuns -1
-#./run.private.sh ntuple_SingleNeutrino_PU300_20190124.py  ParticleGuns -1
-#./run.private.sh ntuple_SingleElectron_PU140_20190124.py  ParticleGuns -1
-#./run.private.sh ntuple_SingleElectron_PU200_20190124.py  ParticleGuns -1
-#./run.private.sh ntuple_SingleMuon_PU140_20190124.py      ParticleGuns -1
-#./run.private.sh ntuple_SingleMuon_PU200_20190124.py      ParticleGuns -1
-#./run.private.sh ntuple_SinglePhoton_PU140_20190124.py    ParticleGuns -1
-#./run.private.sh ntuple_SinglePhoton_PU200_20190124.py    ParticleGuns -1
-#./run.private.sh ntuple_SinglePion0_PU140_20190124.py     ParticleGuns -1
-#./run.private.sh ntuple_SinglePion0_PU200_20190124.py     ParticleGuns -1
-#./run.private.sh ntuple_SinglePion_PU140_20190124.py      ParticleGuns -1
-#./run.private.sh ntuple_SinglePion_PU200_20190124.py      ParticleGuns -1
-#./run.private.sh ntuple_SingleTau_PU140_20190124.py       ParticleGuns -1
-#./run.private.sh ntuple_SingleTau_PU200_20190124.py       ParticleGuns -1
-#./run.private.sh ntuple_ZMM_PU140_20190124.py             ParticleGuns -1
-#./run.private.sh ntuple_ZMM_PU200_20190124.py             ParticleGuns -1
+## Last argument is used for unitsPerJob, instead of njobs
+#./run.private.sh ntuple_SingleNeutrino_PU140_20190124.py  ParticleGuns 10
+#./run.private.sh ntuple_SingleNeutrino_PU200_20190124.py  ParticleGuns 10
+#./run.private.sh ntuple_SingleNeutrino_PU250_20190124.py  ParticleGuns 10
+#./run.private.sh ntuple_SingleNeutrino_PU300_20190124.py  ParticleGuns 10
+#./run.private.sh ntuple_SingleElectron_PU140_20190124.py  ParticleGuns 10
+#./run.private.sh ntuple_SingleElectron_PU200_20190124.py  ParticleGuns 10
+#./run.private.sh ntuple_SingleMuon_PU140_20190124.py      ParticleGuns 10
+#./run.private.sh ntuple_SingleMuon_PU200_20190124.py      ParticleGuns 10
+#./run.private.sh ntuple_SinglePhoton_PU140_20190124.py    ParticleGuns 10
+#./run.private.sh ntuple_SinglePhoton_PU200_20190124.py    ParticleGuns 10
+#./run.private.sh ntuple_SinglePion0_PU140_20190124.py     ParticleGuns 10
+#./run.private.sh ntuple_SinglePion0_PU200_20190124.py     ParticleGuns 10
+#./run.private.sh ntuple_SinglePion_PU140_20190124.py      ParticleGuns 10
+#./run.private.sh ntuple_SinglePion_PU200_20190124.py      ParticleGuns 10
+#./run.private.sh ntuple_SingleTau_PU140_20190124.py       ParticleGuns 10
+#./run.private.sh ntuple_SingleTau_PU200_20190124.py       ParticleGuns 10
+#./run.private.sh ntuple_ZMM_PU140_20190124.py             ParticleGuns 10
+#./run.private.sh ntuple_ZMM_PU200_20190124.py             ParticleGuns 10
 
 # Running over published datasets
 #./run.mc.sh ntuple_SingleNeutrino_PU140_20190124.py  /SingleNeutrino/PhaseIIFall17D-L1TPU140_93X_upgrade2023_realistic_v5-v1/GEN-SIM-DIGI-RAW -1

@@ -2,19 +2,12 @@
 
 echo "[INFO] Using CMSSW_BASE: $CMSSW_BASE"
 
-# Using whitelists
-rm -rf crab_projects/crab_ntuple_SingleMuon_Endcap_2GeV/
-crab submit -c crab_ntuple_SingleMuon_Endcap_2GeV.py
-cp crab_ntuple_SingleMuon_Endcap_2GeV.py crab_projects/crab_ntuple_SingleMuon_Endcap_2GeV/
+## Running over private input files
+## Last argument is used for unitsPerJob, instead of njobs
+./run.private.sh ntuple_SingleMuon_Endcap_2GeV_20190305.py      ParticleGuns 20
+./run.private.sh ntuple_SingleMuon_Endcap2_2GeV_20190305.py     ParticleGuns 20
+./run.private.sh ntuple_SingleMuon_Overlap_3GeV_20190305.py     ParticleGuns 20
+./run.private.sh ntuple_SingleMuon_Overlap2_3GeV_20190305.py    ParticleGuns 20
 
-rm -rf crab_projects/crab_ntuple_SingleMuon_Endcap2_2GeV/
-crab submit -c crab_ntuple_SingleMuon_Endcap2_2GeV.py
-cp crab_ntuple_SingleMuon_Endcap2_2GeV.py crab_projects/crab_ntuple_SingleMuon_Endcap2_2GeV/
-
-rm -rf crab_projects/crab_ntuple_SingleMuon_Overlap_3GeV/
-crab submit -c crab_ntuple_SingleMuon_Overlap_3GeV.py
-cp crab_ntuple_SingleMuon_Overlap_3GeV.py crab_projects/crab_ntuple_SingleMuon_Overlap_3GeV/
-
-rm -rf crab_projects/crab_ntuple_SingleMuon_Overlap2_3GeV/
-crab submit -c crab_ntuple_SingleMuon_Overlap2_3GeV.py
-cp crab_ntuple_SingleMuon_Overlap2_3GeV.py crab_projects/crab_ntuple_SingleMuon_Overlap2_3GeV/
+./run.private.sh ntuple_SingleMuon_FlatPt_Endcap_2GeV_20190305.py      ParticleGuns 20
+./run.private.sh ntuple_SingleMuon_FlatPt_Endcap2_2GeV_20190305.py     ParticleGuns 20
