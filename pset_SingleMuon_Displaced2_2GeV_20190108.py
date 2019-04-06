@@ -31,7 +31,7 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(100)
+    input = cms.untracked.int32(1000)
 )
 
 # Input source
@@ -77,7 +77,7 @@ process.generator = cms.EDProducer("FlatRandomPtGunProducer2",
         MaxEta = cms.double(-1.2),
         MaxPhi = cms.double(3.14159265359),
         MaxPt = cms.double(7000.0),
-        MinEta = cms.double(-2.5),
+        MinEta = cms.double(-2.8),
         MinPhi = cms.double(-3.14159265359),
         MinPt = cms.double(2.0),
         PartID = cms.vint32(-13),
@@ -99,12 +99,13 @@ process.VtxSmeared = cms.EDProducer("FlatEvtVtxGenerator2",
 )
 process.VtxSmeared.MaxX = cms.double(120)            # was 0.0015
 process.VtxSmeared.MaxY = cms.double(120)            # was 0.0015
-process.VtxSmeared.MaxZ = cms.double(100)            # was 5.3
-process.VtxSmeared.MaxT = cms.double(100/29.9792458) # was 0.176789
+process.VtxSmeared.MaxZ = cms.double(30)             # was 5.3
+process.VtxSmeared.MaxT = cms.double(30/29.9792458)  # was 0.176789
 process.VtxSmeared.MinX = cms.double(-1*process.VtxSmeared.MaxX.value())
 process.VtxSmeared.MinY = cms.double(-1*process.VtxSmeared.MaxY.value())
 process.VtxSmeared.MinZ = cms.double(-1*process.VtxSmeared.MaxZ.value())
 process.VtxSmeared.MinT = cms.double(-1*process.VtxSmeared.MaxT.value())
+process.VtxSmeared.VtxSpectrum = cms.string('flatD0')
 
 
 # Path and EndPath definitions

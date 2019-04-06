@@ -74,10 +74,10 @@ process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:phase2_realistic', '')
 process.generator = cms.EDProducer("FlatRandomPtGunProducer2",
     AddAntiParticle = cms.bool(False),
     PGunParameters = cms.PSet(
-        MaxEta = cms.double(2.8),
+        MaxEta = cms.double(-1.2),
         MaxPhi = cms.double(3.14159265359),
         MaxPt = cms.double(7000.0),
-        MinEta = cms.double(1.2),
+        MinEta = cms.double(-2.8),
         MinPhi = cms.double(-3.14159265359),
         MinPt = cms.double(2.0),
         PartID = cms.vint32(-13),
@@ -86,7 +86,7 @@ process.generator = cms.EDProducer("FlatRandomPtGunProducer2",
     ),
     Verbosity = cms.untracked.int32(0),
     firstRun = cms.untracked.uint32(1),
-    psethack = cms.string('single muon+/- pt 2 to 7000 flat in 1/pt positive endcap')
+    psethack = cms.string('single muon+/- pt 2 to 7000 flat in 1/pt negative endcap')
 )
 
 # VtxSmeared
@@ -105,7 +105,7 @@ process.VtxSmeared.MinX = cms.double(-1*process.VtxSmeared.MaxX.value())
 process.VtxSmeared.MinY = cms.double(-1*process.VtxSmeared.MaxY.value())
 process.VtxSmeared.MinZ = cms.double(-1*process.VtxSmeared.MaxZ.value())
 process.VtxSmeared.MinT = cms.double(-1*process.VtxSmeared.MaxT.value())
-process.VtxSmeared.VtxSpectrum = cms.string('flatD0')
+process.VtxSmeared.VtxSpectrum = cms.string('flatPhi')
 
 
 # Path and EndPath definitions
@@ -189,7 +189,7 @@ print("[INFO] Using random number seed: %d" % process.RandomNumberGeneratorServi
 if True:
     # Ntuplize
     process.load('L1TMuonSimulations.Analyzers.rpcintegration_cfi')
-    process.ntupler.outFileName = 'ntuple_SingleMuon_Displaced.root'
+    process.ntupler.outFileName = 'ntuple_SingleMuon_Displaced2_FlatPhi.root'
     process.ntupler.verbosity = 0
     process.TFileService = cms.Service('TFileService', fileName = cms.string(process.ntupler.outFileName.value()))
     # Modify sequences without any consequences

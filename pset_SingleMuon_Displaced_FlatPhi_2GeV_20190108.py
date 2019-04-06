@@ -105,7 +105,7 @@ process.VtxSmeared.MinX = cms.double(-1*process.VtxSmeared.MaxX.value())
 process.VtxSmeared.MinY = cms.double(-1*process.VtxSmeared.MaxY.value())
 process.VtxSmeared.MinZ = cms.double(-1*process.VtxSmeared.MaxZ.value())
 process.VtxSmeared.MinT = cms.double(-1*process.VtxSmeared.MaxT.value())
-process.VtxSmeared.VtxSpectrum = cms.string('flatD0')
+process.VtxSmeared.VtxSpectrum = cms.string('flatPhi')
 
 
 # Path and EndPath definitions
@@ -189,7 +189,7 @@ print("[INFO] Using random number seed: %d" % process.RandomNumberGeneratorServi
 if True:
     # Ntuplize
     process.load('L1TMuonSimulations.Analyzers.rpcintegration_cfi')
-    process.ntupler.outFileName = 'ntuple_SingleMuon_Displaced.root'
+    process.ntupler.outFileName = 'ntuple_SingleMuon_Displaced_FlatPhi.root'
     process.ntupler.verbosity = 0
     process.TFileService = cms.Service('TFileService', fileName = cms.string(process.ntupler.outFileName.value()))
     # Modify sequences without any consequences

@@ -10,3 +10,6 @@ echo "[INFO] Using CMSSW_BASE: $CMSSW_BASE"
 
 ./run.sh pset_SingleMuon_Displaced_2GeV_20190108.py                ParticleGuns 1000
 ./run.sh pset_SingleMuon_Displaced2_2GeV_20190108.py               ParticleGuns 1000
+
+./run.sh pset_SingleMuon_Displaced_FlatPhi_2GeV_20190108.py        ParticleGuns 1000
+./run.sh pset_SingleMuon_Displaced2_FlatPhi_2GeV_20190108.py       ParticleGuns 1000
