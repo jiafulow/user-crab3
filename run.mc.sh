@@ -14,6 +14,24 @@ config.Data.ignoreLocality = True
 config.Site.whitelist = ['T2_US_*']
 #config.Site.whitelist = ['T2_US_UCSD','T2_US_Wisconsin','T2_US_Florida','T2_US_MIT','T2_US_Nebraska', 'T2_US_Purdue', 'T3_US_FNALLPC']
 #config.Site.ignoreGlobalBlacklist = True
+#
+allow_overflow = True
+if config.General.requestName == 'ntuple_SingleNeutrino_PU140':
+    config.Site.whitelist = ['T2_US_MIT']
+    allow_overflow = False
+elif config.General.requestName == 'ntuple_SingleNeutrino_PU200':
+    config.Site.whitelist = ['T3_US_Colorado']
+    allow_overflow = False
+elif config.General.requestName == 'ntuple_SingleNeutrino_PU200':
+    config.Site.whitelist = ['T2_BR_SPRACE']
+    allow_overflow = False
+elif config.General.requestName == 'ntuple_SingleNeutrino_PU200':
+    config.Site.whitelist = ['T1_UK_RAL']
+    allow_overflow = False
+if not allow_overflow:
+    # See https://twiki.cern.ch/twiki/bin/view/CMSPublic/CRAB3FAQ#What_is_glideinWms_Overflow_and
+    config.section_("Debug")
+    config.Debug.extraJDL = ['+CMS_ALLOW_OVERFLOW=False']
 EOF
 }
 
