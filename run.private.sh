@@ -14,7 +14,7 @@ config.JobType.maxMemoryMB = 3000
 config.JobType.maxJobRuntimeMin = 600
 config.Data.userInputFiles = list(pset.process.source.fileNames)
 config.Data.splitting = 'FileBased'
-config.Data.unitsPerJob = njobs
+config.Data.unitsPerJob = njobs  # 'njobs' being used for unitsPerJob
 config.Data.totalUnits = len(config.Data.userInputFiles)
 #
 config.Data.ignoreLocality = True
