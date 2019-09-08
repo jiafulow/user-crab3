@@ -5,14 +5,20 @@ cat <<EOF >>crab.py
 # Customise for running over private input files
 import os
 import imp
-cfgBaseName = config.JobType.psetName.replace('.py', '')
-file, pathname, description = imp.find_module(cfgBaseName)
-pset = imp.load_module(cfgBaseName, file, pathname, description)
+configname = config.JobType.psetName
+cfgBaseName = os.path.basename( os.path.abspath( configname ) ).replace(".py", "")
+cfgDirName = os.path.dirname( os.path.abspath( configname ) )
+if not cfgDirName:
+    modPath = imp.find_module(cfgBaseName)
+else:
+    modPath = imp.find_module(cfgBaseName, [cfgDirName])
+pset = imp.load_module(cfgBaseName, modPath[0], modPath[1], modPath[2])
+fileNames = list(pset.process.source.fileNames)
 #
 config.JobType.pluginName = 'Analysis'
 config.JobType.maxMemoryMB = 3000
 config.JobType.maxJobRuntimeMin = 600
-config.Data.userInputFiles = list(pset.process.source.fileNames)
+config.Data.userInputFiles = fileNames
 config.Data.splitting = 'FileBased'
 config.Data.unitsPerJob = njobs  # 'njobs' being used for unitsPerJob
 config.Data.totalUnits = len(config.Data.userInputFiles)
