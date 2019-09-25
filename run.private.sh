@@ -16,8 +16,8 @@ pset = imp.load_module(cfgBaseName, modPath[0], modPath[1], modPath[2])
 fileNames = list(pset.process.source.fileNames)
 #
 config.JobType.pluginName = 'Analysis'
-config.JobType.maxMemoryMB = 3000
-config.JobType.maxJobRuntimeMin = 600
+config.JobType.maxMemoryMB = 2500
+config.JobType.maxJobRuntimeMin = 1315
 config.Data.userInputFiles = fileNames
 config.Data.splitting = 'FileBased'
 config.Data.unitsPerJob = njobs  # 'njobs' being used for unitsPerJob
@@ -30,7 +30,7 @@ config.Site.ignoreGlobalBlacklist = True
 #
 ## See https://twiki.cern.ch/twiki/bin/view/CMSPublic/CRAB3FAQ#What_is_glideinWms_Overflow_and
 #config.section_("Debug")
-#config.Debug.extraJDL = ['+CMS_ALLOW_OVERFLOW=False'
+#config.Debug.extraJDL = ['+CMS_ALLOW_OVERFLOW=False']
 EOF
 }
 
