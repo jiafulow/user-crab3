@@ -124,8 +124,8 @@ print("[INFO] Using GlobalTag: %s" % process.GlobalTag.globaltag.value())
 if True:
     # Ntuplize
     process.load('L1TMuonSimulations.Analyzers.rpcintegration_cfi')
-    process.ntupler.outFileName = 'ntuple_SingleNeutrino_PU200.root'
-    process.ntupler.verbosity = 0
+    #process.ntupler.outFileName = 'ntuple_SingleNeutrino_PU200.root'
+    #process.ntupler.verbosity = 0
     process.TFileService = cms.Service('TFileService', fileName = cms.string(process.ntupler.outFileName.value()))
     # Modify sequences without any consequences
     #process.doAllDigiTask = cms.Task(process.generatorSmeared, process.muonDigiTask)

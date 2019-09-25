@@ -2,12 +2,12 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: step1 --step L1 --mc --eventcontent FEVTDEBUGHLT --datatier GEN-SIM-DIGI-RAW --conditions auto:phase2_realistic --geometry Extended2023D35 --era Phase2C4_timing_layer_bar --filein file:step0.root --fileout file:step1.root --no_exec --nThreads 4 -n 100
+# with command line options: step1 --step L1 --mc --eventcontent FEVTDEBUGHLT --customise SLHCUpgradeSimulations/Configuration/aging.customise_aging_1000 --datatier GEN-SIM-DIGI-RAW --conditions auto:phase2_realistic --geometry Extended2023D41 --era Phase2C8_timing_layer_bar --filein file:step0.root --fileout file:step1.root --no_exec --nThreads 4 -n 100
 import FWCore.ParameterSet.Config as cms
 
-from Configuration.Eras.Era_Phase2C4_timing_layer_bar_cff import Phase2C4_timing_layer_bar
+from Configuration.Eras.Era_Phase2C8_timing_layer_bar_cff import Phase2C8_timing_layer_bar
 
-process = cms.Process('L1',Phase2C4_timing_layer_bar)
+process = cms.Process('L1',Phase2C8_timing_layer_bar)
 
 # import of standard configurations
 process.load('Configuration.StandardSequences.Services_cff')
@@ -15,7 +15,7 @@ process.load('SimGeneral.HepPDTESSource.pythiapdt_cfi')
 process.load('FWCore.MessageService.MessageLogger_cfi')
 process.load('Configuration.EventContent.EventContent_cff')
 process.load('SimGeneral.MixingModule.mixNoPU_cfi')
-process.load('Configuration.Geometry.GeometryExtended2023D35Reco_cff')
+process.load('Configuration.Geometry.GeometryExtended2023D41Reco_cff')
 process.load('Configuration.StandardSequences.MagneticField_cff')
 process.load('Configuration.StandardSequences.SimL1Emulator_cff')
 process.load('Configuration.StandardSequences.EndOfProcess_cff')
@@ -28,7 +28,7 @@ process.maxEvents = cms.untracked.PSet(
 # Input source
 process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring(
-        '/store/mc/PhaseIIMTDTDRAutumn18DR/NeutrinoGun_E_10GeV/FEVT/PU200_103X_upgrade2023_realistic_v2-v1/40000/DA20A045-9075-4240-BC0E-FBFAB6F65484.root',
+        '/store/mc/PhaseIITDRSpring19DR/Nu_E10-pythia8-gun/GEN-SIM-DIGI-RAW/PU200_106X_upgrade2023_realistic_v3-v3/70000/C433BE7F-B206-A948-BAF8-05EEE3F2C4F7.root',
     ),
     secondaryFileNames = cms.untracked.vstring(),
 )
@@ -88,9 +88,9 @@ process = customiseEarlyDelete(process)
 
 # ______________________________________________________________________________
 # Modify input files
-if True:
+if False:
   from L1TMuonSimulations.Configuration.tools import *
-  txt = 'L1TMuonSimulations/Configuration/data/input_NeutrinoGun_E_10GeV_PhaseIIMTDTDRAutumn18_PU200.txt'
+  txt = 'L1TMuonSimulations/Configuration/data/input_Nu_E10-pythia8-gun_PhaseIITDRSpring19_PU200.txt'
   txt = os.path.join(os.environ['CMSSW_BASE'], 'src', txt)
   fileNames_txt = loadFromFile(txt, fmt='')
   process.source.fileNames = fileNames_txt
@@ -124,7 +124,7 @@ print("[INFO] Using GlobalTag: %s" % process.GlobalTag.globaltag.value())
 if True:
     # Ntuplize
     process.load('L1TMuonSimulations.Analyzers.rpcintegration_cfi')
-    #process.ntupler.outFileName = 'ntuple_SingleNeutrino_PU200_MTD.root'
+    #process.ntupler.outFileName = 'ntuple_SingleNeutrino_PU200.root'
     #process.ntupler.verbosity = 0
     process.TFileService = cms.Service('TFileService', fileName = cms.string(process.ntupler.outFileName.value()))
     # Modify sequences without any consequences
