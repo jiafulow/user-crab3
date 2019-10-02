@@ -32,6 +32,7 @@ config.Data.totalUnits = config.Data.unitsPerJob * njobs
 config.Data.outLFNDirBase = '/store/group/l1upgrades/L1MuonTrigger/P2_10_6_3/XX-LABEL-XX/'
 config.Data.publication = False
 config.Data.outputDatasetTag = 'CRAB3'
+#config.Data.allowNonValidInputDataset = True
 
 #config.Site.storageSite = 'T2_US_Florida'
 config.Site.storageSite = 'T3_US_FNALLPC'
