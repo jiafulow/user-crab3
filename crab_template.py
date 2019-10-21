@@ -1,6 +1,7 @@
 from CRABClient.UserUtilities import config, getUsernameFromSiteDB
 config = config()
 
+config.General.instance = 'prod'
 config.General.requestName = 'XX-LABEL-XX'
 config.General.workArea = 'crab_projects'
 config.General.transferOutputs = True
