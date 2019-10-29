@@ -95,10 +95,10 @@ process.VtxSmeared = cms.EDProducer("FlatEvtVtxGenerator2",
     FlatVtxSmearingParameters,
     VtxSmearedCommon
 )
-process.VtxSmeared.MaxX = cms.double(120)            # was 0.0015
-process.VtxSmeared.MaxY = cms.double(120)            # was 0.0015
-process.VtxSmeared.MaxZ = cms.double(30)             # was 5.3
-process.VtxSmeared.MaxT = cms.double(30/29.9792458)  # was 0.176789
+process.VtxSmeared.MaxX = cms.double(150)            # was 0.0015
+process.VtxSmeared.MaxY = cms.double(150)            # was 0.0015
+process.VtxSmeared.MaxZ = cms.double(30)             # was 5.3      # NO EFFECT
+process.VtxSmeared.MaxT = cms.double(30/29.9792458)  # was 0.176789 # NO EFFECT
 process.VtxSmeared.MinX = cms.double(-1*process.VtxSmeared.MaxX.value())
 process.VtxSmeared.MinY = cms.double(-1*process.VtxSmeared.MaxY.value())
 process.VtxSmeared.MinZ = cms.double(-1*process.VtxSmeared.MaxZ.value())
@@ -165,9 +165,8 @@ print("[INFO] Using GlobalTag: %s" % process.GlobalTag.globaltag.value())
 print("[INFO] Using random number seed: %d" % process.RandomNumberGeneratorService.generator.initialSeed.value())
 if True:
     # Ntuplize
-    process.load('L1TMuonSimulations.Analyzers.rpcintegration_cfi')
-    process.ntupler.outFileName = 'ntuple_SingleMuon_Displaced.root'
-    process.TFileService = cms.Service('TFileService', fileName = cms.string(process.ntupler.outFileName.value()))
+    process.load('L1TMuonSimulations.Analyzers.ntupler_cfi')
+    process.TFileService = cms.Service('TFileService', fileName = process.ntupler.outFileName)
     # Modify sequences without any consequences
     process.doAllDigiTask = cms.Task(process.generatorSmeared, process.muonDigiTask)
     process.SimL1TMuonTask = cms.Task(process.SimL1TMuonCommonTask, process.me0TriggerPseudoDigiTask, process.me0TriggerPseudoDigiTask105X, process.rpcRecHits, process.simBmtfDigis, process.simEmtfDigis, process.simOmtfDigis, process.simTwinMuxDigis)
