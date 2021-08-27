@@ -8,9 +8,14 @@ config.JobType.maxMemoryMB = 2500
 config.JobType.maxJobRuntimeMin = 1315
 config.Data.splitting = 'FileBased'
 config.Data.unitsPerJob = njobs  # 'njobs' being used for unitsPerJob
+config.Data.inputDataset = config.Data.outputPrimaryDataset
+config.Data.inputDBS = 'global'
+del config.Data.outputPrimaryDataset
+del config.Data.totalUnits
 #
-config.Data.ignoreLocality = True
-config.Site.whitelist = ['T2_US_*']
+#config.Data.ignoreLocality = True
+#config.Site.whitelist = ['T2_US_*']
+#config.Site.whitelist = ['T2_CH_*', 'T2_IT_*', 'T2_FR_*', 'T2_DE_*']
 #config.Site.whitelist = ['T2_US_UCSD','T2_US_Wisconsin','T2_US_Florida','T2_US_MIT','T2_US_Nebraska', 'T2_US_Purdue', 'T3_US_FNALLPC']
 #config.Site.ignoreGlobalBlacklist = True
 #
@@ -24,7 +29,7 @@ EOF
 config=$1
 dataset=$2
 njobs=$3
-label=`echo $config | sed "s@p/ntupler_\(.*\)_[0-9]\+\.py@ntupler_\1@"`
+label=`echo $config | sed "s@p/pset_\(.*\)_[0-9]\+\.py@\1@"`
 projdir=crab_${label}
 echo "Run config=$config dataset=$dataset njobs=$njobs label=$label"
 
@@ -37,10 +42,6 @@ if [ -d crab_projects/${projdir}/ ]; then
 fi
 
 sed "s@XX-LABEL-XX@$label@g ; s@XX-DATASET-XX@$dataset@g ; s@XX-CONFIG-XX@$config@g ; s@XX-NJOBS-XX@$njobs@g" crab_template.py > crab.py
-sed -i "s@#config.Data.inputDataset@config.Data.inputDataset@g" crab.py
-sed -i "s@#config.Data.inputDBS@config.Data.inputDBS@g" crab.py
-sed -i "s@config.Data.outputPrimaryDataset@#config.Data.outputPrimaryDataset@g" crab.py
-sed -i "s@config.Data.totalUnits@#config.Data.totalUnits@g" crab.py
 
 customise
 

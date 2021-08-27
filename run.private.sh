@@ -37,7 +37,7 @@ EOF
 config=$1
 dataset=$2
 njobs=$3
-label=`echo $config | sed "s@p/ntupler_\(.*\)_[0-9]\+\.py@ntupler_\1@"`
+label=`echo $config | sed "s@p/pset_\(.*\)_[0-9]\+\.py@\1@"`
 projdir=crab_${label}
 echo "Run config=$config dataset=$dataset njobs=$njobs label=$label"
 
